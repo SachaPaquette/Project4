@@ -74,6 +74,7 @@ namespace Project4
             this.addGenreButton.TabIndex = 2;
             this.addGenreButton.Text = "Add a Genre";
             this.addGenreButton.UseVisualStyleBackColor = true;
+            this.addGenreButton.Click += new System.EventHandler(this.addGenreButton_Click);
             // 
             // modifyGenreButton
             // 
@@ -83,6 +84,7 @@ namespace Project4
             this.modifyGenreButton.TabIndex = 3;
             this.modifyGenreButton.Text = "Modify a Genre";
             this.modifyGenreButton.UseVisualStyleBackColor = true;
+            this.modifyGenreButton.Click += new System.EventHandler(this.modifyGenreButton_Click);
             // 
             // button1
             // 

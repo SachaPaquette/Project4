@@ -30,10 +30,10 @@ namespace Project4
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.genreTextBox = new System.Windows.Forms.TextBox();
+            this.codeTextBox = new System.Windows.Forms.TextBox();
             this.titleLabel = new System.Windows.Forms.Label();
             this.titleTextBox = new System.Windows.Forms.TextBox();
-            this.yearTextBox = new System.Windows.Forms.TextBox();
+            this.descriptionTextBox = new System.Windows.Forms.TextBox();
             this.genreLabel = new System.Windows.Forms.Label();
             this.yearLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -42,10 +42,10 @@ namespace Project4
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.genreTextBox);
+            this.panel1.Controls.Add(this.codeTextBox);
             this.panel1.Controls.Add(this.titleLabel);
             this.panel1.Controls.Add(this.titleTextBox);
-            this.panel1.Controls.Add(this.yearTextBox);
+            this.panel1.Controls.Add(this.descriptionTextBox);
             this.panel1.Controls.Add(this.genreLabel);
             this.panel1.Controls.Add(this.yearLabel);
             this.panel1.Location = new System.Drawing.Point(12, 12);
@@ -53,12 +53,12 @@ namespace Project4
             this.panel1.Size = new System.Drawing.Size(235, 155);
             this.panel1.TabIndex = 1;
             // 
-            // genreTextBox
+            // codeTextBox
             // 
-            this.genreTextBox.Location = new System.Drawing.Point(80, 70);
-            this.genreTextBox.Name = "genreTextBox";
-            this.genreTextBox.Size = new System.Drawing.Size(127, 20);
-            this.genreTextBox.TabIndex = 31;
+            this.codeTextBox.Location = new System.Drawing.Point(80, 70);
+            this.codeTextBox.Name = "codeTextBox";
+            this.codeTextBox.Size = new System.Drawing.Size(127, 20);
+            this.codeTextBox.TabIndex = 31;
             // 
             // titleLabel
             // 
@@ -76,12 +76,12 @@ namespace Project4
             this.titleTextBox.Size = new System.Drawing.Size(127, 20);
             this.titleTextBox.TabIndex = 24;
             // 
-            // yearTextBox
+            // descriptionTextBox
             // 
-            this.yearTextBox.Location = new System.Drawing.Point(80, 117);
-            this.yearTextBox.Name = "yearTextBox";
-            this.yearTextBox.Size = new System.Drawing.Size(127, 20);
-            this.yearTextBox.TabIndex = 29;
+            this.descriptionTextBox.Location = new System.Drawing.Point(80, 117);
+            this.descriptionTextBox.Name = "descriptionTextBox";
+            this.descriptionTextBox.Size = new System.Drawing.Size(127, 20);
+            this.descriptionTextBox.TabIndex = 29;
             // 
             // genreLabel
             // 
@@ -109,6 +109,7 @@ namespace Project4
             this.Controls.Add(this.panel1);
             this.Name = "GenreForm";
             this.Text = "GenreForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GenreForm_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -118,10 +119,10 @@ namespace Project4
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox genreTextBox;
+        private System.Windows.Forms.TextBox codeTextBox;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.TextBox titleTextBox;
-        private System.Windows.Forms.TextBox yearTextBox;
+        private System.Windows.Forms.TextBox descriptionTextBox;
         private System.Windows.Forms.Label genreLabel;
         private System.Windows.Forms.Label yearLabel;
     }

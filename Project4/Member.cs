@@ -15,6 +15,11 @@ namespace Project4
             DoB = doB;
             TypeId = typeId;
         }
+
+        public Member()
+        {
+
+        }
         public int Id {get; set;}
         public string Name { get; set; }
         public DateTime DoB { get; set; }

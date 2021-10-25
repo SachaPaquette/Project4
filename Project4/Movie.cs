@@ -9,13 +9,12 @@ namespace Project4
    public class Movie
     {
 
-        public Movie(string genre, string title, int year, string length, string director, double rating, string path)
+        public Movie(int id, string title, int year, string length, double rating, string path)
         {
-            Genre = genre;
+           
             Title = title;
             Year = year;
             Length = length;
-            Director = director;
             Rating = rating;
             Path = path;
         }
