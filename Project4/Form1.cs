@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.IO;
 using MySql.Data.MySqlClient;
+
 namespace Project4
 {
     public partial class Form1 : Form
@@ -127,7 +128,7 @@ namespace Project4
                     // Create a new movie
                     currentGenre = new Genre();
 
-                    currentGenre.Code = dataReader.GetInt32(0);
+                    currentGenre.Code = dataReader.GetString(0);
                     currentGenre.Name = dataReader.GetString(1);
                     currentGenre.Description = dataReader.GetString(2);
 
@@ -348,7 +349,7 @@ namespace Project4
         {
             //   LoadFile(filePath);
             //This method sets up a connection to a MySQL database
-            SetDBConnection("127.0.0.1", "3306", "loc", "yolo123!", "db_test");
+            SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "test_db");
             Headers();
 
             GetGenreFromDb();
@@ -360,8 +361,15 @@ namespace Project4
 
         private void movieListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            string selected = movieListView.SelectedItems[0].SubItems[0].Text; 
+
+            mov = new MovieForm(movieList,  Convert.ToInt32(selected));
+
+            mov.Show();
+
+            Selected();
         }
+        
 
         private void genreListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -543,7 +551,7 @@ namespace Project4
        
         private void AddMovie()
         {
-            mov = new MovieForm();
+            mov = new MovieForm(movieList, -1);
 
             mov.ShowDialog();
 

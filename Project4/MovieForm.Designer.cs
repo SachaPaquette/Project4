@@ -30,6 +30,7 @@ namespace Project4
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.genreTextBox = new System.Windows.Forms.TextBox();
             this.pathButton = new System.Windows.Forms.Button();
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.titleTextBox = new System.Windows.Forms.TextBox();
@@ -47,7 +48,6 @@ namespace Project4
             this.moviePictureBox = new System.Windows.Forms.PictureBox();
             this.deleteButton = new System.Windows.Forms.Button();
             this.modifyButton = new System.Windows.Forms.Button();
-            this.genreTextBox = new System.Windows.Forms.TextBox();
             this.memberListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -76,6 +76,13 @@ namespace Project4
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(277, 378);
             this.panel1.TabIndex = 22;
+            // 
+            // genreTextBox
+            // 
+            this.genreTextBox.Location = new System.Drawing.Point(93, 78);
+            this.genreTextBox.Name = "genreTextBox";
+            this.genreTextBox.Size = new System.Drawing.Size(127, 20);
+            this.genreTextBox.TabIndex = 23;
             // 
             // pathButton
             // 
@@ -220,13 +227,6 @@ namespace Project4
             this.modifyButton.Text = "Modify";
             this.modifyButton.UseVisualStyleBackColor = true;
             // 
-            // genreTextBox
-            // 
-            this.genreTextBox.Location = new System.Drawing.Point(93, 78);
-            this.genreTextBox.Name = "genreTextBox";
-            this.genreTextBox.Size = new System.Drawing.Size(127, 20);
-            this.genreTextBox.TabIndex = 23;
-            // 
             // memberListBox
             // 
             this.memberListBox.FormattingEnabled = true;
@@ -257,6 +257,7 @@ namespace Project4
             this.Controls.Add(this.modifyButton);
             this.Name = "MovieForm";
             this.Text = "MovieForm";
+            this.Load += new System.EventHandler(this.MovieForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.moviePictureBox)).EndInit();

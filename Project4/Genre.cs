@@ -8,7 +8,7 @@ namespace Project4
 {
    public class Genre
     {
-        public Genre(int code, string name, string description)
+        public Genre(string code, string name, string description)
         {
 
             Code = code;
@@ -22,7 +22,7 @@ namespace Project4
         }
 
 
-        public int Code { get; set; }
+        public string Code { get; set; }
         public string Name { get; set; }
 
         public string Description { get; set; }

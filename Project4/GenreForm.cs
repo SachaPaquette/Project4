@@ -91,7 +91,7 @@ namespace Project4
                 Genre genr = new Genre();
 
                 genr.Name = titleTextBox.Text;
-                genr.Code = int.Parse(codeTextBox.Text);
+                genr.Code = codeTextBox.Text;
                 genr.Description = descriptionTextBox.Text;
 
                 Form1.genreList.Add(genr);
@@ -103,7 +103,7 @@ namespace Project4
             if (CheckIfFormOK() == true)
             {
                 modifiedGenre.Name = titleTextBox.Text;
-                modifiedGenre.Code = int.Parse(codeTextBox.Text);
+                modifiedGenre.Code = codeTextBox.Text;
                 modifiedGenre.Description = descriptionTextBox.Text;
             }
         }
