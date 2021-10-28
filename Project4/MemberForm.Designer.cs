@@ -30,46 +30,39 @@ namespace Project4
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.genreTextBox = new System.Windows.Forms.TextBox();
-            this.titleTextBox = new System.Windows.Forms.TextBox();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
             this.titleLabel = new System.Windows.Forms.Label();
-            this.genreLabel = new System.Windows.Forms.Label();
-            this.lengthTextBox = new System.Windows.Forms.TextBox();
-            this.yearLabel = new System.Windows.Forms.Label();
-            this.yearTextBox = new System.Windows.Forms.TextBox();
+            this.idTextBox = new System.Windows.Forms.TextBox();
             this.lengthLabel = new System.Windows.Forms.Label();
+            this.dobTextBox = new System.Windows.Forms.TextBox();
+            this.genreLabel = new System.Windows.Forms.Label();
+            this.yearLabel = new System.Windows.Forms.Label();
+            this.typeTextBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.genreTextBox);
+            this.panel1.Controls.Add(this.nameTextBox);
             this.panel1.Controls.Add(this.titleLabel);
-            this.panel1.Controls.Add(this.titleTextBox);
+            this.panel1.Controls.Add(this.idTextBox);
             this.panel1.Controls.Add(this.lengthLabel);
-            this.panel1.Controls.Add(this.yearTextBox);
+            this.panel1.Controls.Add(this.dobTextBox);
             this.panel1.Controls.Add(this.genreLabel);
             this.panel1.Controls.Add(this.yearLabel);
-            this.panel1.Controls.Add(this.lengthTextBox);
+            this.panel1.Controls.Add(this.typeTextBox);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(235, 200);
             this.panel1.TabIndex = 0;
             // 
-            // genreTextBox
+            // nameTextBox
             // 
-            this.genreTextBox.Location = new System.Drawing.Point(80, 70);
-            this.genreTextBox.Name = "genreTextBox";
-            this.genreTextBox.Size = new System.Drawing.Size(127, 20);
-            this.genreTextBox.TabIndex = 31;
-            // 
-            // titleTextBox
-            // 
-            this.titleTextBox.Location = new System.Drawing.Point(80, 25);
-            this.titleTextBox.Name = "titleTextBox";
-            this.titleTextBox.Size = new System.Drawing.Size(127, 20);
-            this.titleTextBox.TabIndex = 24;
+            this.nameTextBox.Location = new System.Drawing.Point(80, 70);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(127, 20);
+            this.nameTextBox.TabIndex = 31;
             // 
             // titleLabel
             // 
@@ -80,6 +73,29 @@ namespace Project4
             this.titleLabel.TabIndex = 25;
             this.titleLabel.Text = "Id:";
             // 
+            // idTextBox
+            // 
+            this.idTextBox.Location = new System.Drawing.Point(80, 25);
+            this.idTextBox.Name = "idTextBox";
+            this.idTextBox.Size = new System.Drawing.Size(127, 20);
+            this.idTextBox.TabIndex = 24;
+            // 
+            // lengthLabel
+            // 
+            this.lengthLabel.AutoSize = true;
+            this.lengthLabel.Location = new System.Drawing.Point(24, 159);
+            this.lengthLabel.Name = "lengthLabel";
+            this.lengthLabel.Size = new System.Drawing.Size(46, 13);
+            this.lengthLabel.TabIndex = 28;
+            this.lengthLabel.Text = "Type Id:";
+            // 
+            // dobTextBox
+            // 
+            this.dobTextBox.Location = new System.Drawing.Point(80, 117);
+            this.dobTextBox.Name = "dobTextBox";
+            this.dobTextBox.Size = new System.Drawing.Size(127, 20);
+            this.dobTextBox.TabIndex = 29;
+            // 
             // genreLabel
             // 
             this.genreLabel.AutoSize = true;
@@ -88,13 +104,6 @@ namespace Project4
             this.genreLabel.Size = new System.Drawing.Size(38, 13);
             this.genreLabel.TabIndex = 26;
             this.genreLabel.Text = "Name:";
-            // 
-            // lengthTextBox
-            // 
-            this.lengthTextBox.Location = new System.Drawing.Point(80, 159);
-            this.lengthTextBox.Name = "lengthTextBox";
-            this.lengthTextBox.Size = new System.Drawing.Size(127, 20);
-            this.lengthTextBox.TabIndex = 30;
             // 
             // yearLabel
             // 
@@ -105,21 +114,12 @@ namespace Project4
             this.yearLabel.TabIndex = 27;
             this.yearLabel.Text = "Date of Birth:";
             // 
-            // yearTextBox
+            // typeTextBox
             // 
-            this.yearTextBox.Location = new System.Drawing.Point(80, 117);
-            this.yearTextBox.Name = "yearTextBox";
-            this.yearTextBox.Size = new System.Drawing.Size(127, 20);
-            this.yearTextBox.TabIndex = 29;
-            // 
-            // lengthLabel
-            // 
-            this.lengthLabel.AutoSize = true;
-            this.lengthLabel.Location = new System.Drawing.Point(24, 159);
-            this.lengthLabel.Name = "lengthLabel";
-            this.lengthLabel.Size = new System.Drawing.Size(46, 13);
-            this.lengthLabel.TabIndex = 28;
-            this.lengthLabel.Text = "Type Id:";
+            this.typeTextBox.Location = new System.Drawing.Point(80, 159);
+            this.typeTextBox.Name = "typeTextBox";
+            this.typeTextBox.Size = new System.Drawing.Size(127, 20);
+            this.typeTextBox.TabIndex = 30;
             // 
             // MemberForm
             // 
@@ -138,13 +138,13 @@ namespace Project4
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox genreTextBox;
+        private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Label titleLabel;
-        private System.Windows.Forms.TextBox titleTextBox;
+        private System.Windows.Forms.TextBox idTextBox;
         private System.Windows.Forms.Label lengthLabel;
-        private System.Windows.Forms.TextBox yearTextBox;
+        private System.Windows.Forms.TextBox dobTextBox;
         private System.Windows.Forms.Label genreLabel;
         private System.Windows.Forms.Label yearLabel;
-        private System.Windows.Forms.TextBox lengthTextBox;
+        private System.Windows.Forms.TextBox typeTextBox;
     }
 }

@@ -33,17 +33,17 @@ namespace Project4
             this.genreListBox = new System.Windows.Forms.ListBox();
             this.addGenreButton = new System.Windows.Forms.Button();
             this.modifyGenreButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.searchYearButton = new System.Windows.Forms.Button();
+            this.yearTextBox = new System.Windows.Forms.TextBox();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.searchNameButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.memberListBox = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.memberModButton = new System.Windows.Forms.Button();
+            this.addMemberButton = new System.Windows.Forms.Button();
+            this.addMovieButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,37 +86,39 @@ namespace Project4
             this.modifyGenreButton.UseVisualStyleBackColor = true;
             this.modifyGenreButton.Click += new System.EventHandler(this.modifyGenreButton_Click);
             // 
-            // button1
+            // searchYearButton
             // 
-            this.button1.Location = new System.Drawing.Point(138, 93);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Search by Year";
-            this.button1.UseVisualStyleBackColor = true;
+            this.searchYearButton.Location = new System.Drawing.Point(138, 93);
+            this.searchYearButton.Name = "searchYearButton";
+            this.searchYearButton.Size = new System.Drawing.Size(107, 23);
+            this.searchYearButton.TabIndex = 4;
+            this.searchYearButton.Text = "Search by Year";
+            this.searchYearButton.UseVisualStyleBackColor = true;
+            this.searchYearButton.Click += new System.EventHandler(this.searchYearButton_Click);
             // 
-            // textBox1
+            // yearTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(10, 95);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(123, 20);
-            this.textBox1.TabIndex = 5;
+            this.yearTextBox.Location = new System.Drawing.Point(10, 95);
+            this.yearTextBox.Name = "yearTextBox";
+            this.yearTextBox.Size = new System.Drawing.Size(123, 20);
+            this.yearTextBox.TabIndex = 5;
             // 
-            // textBox2
+            // nameTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(10, 58);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(123, 20);
-            this.textBox2.TabIndex = 6;
+            this.nameTextBox.Location = new System.Drawing.Point(10, 58);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(123, 20);
+            this.nameTextBox.TabIndex = 6;
             // 
-            // button2
+            // searchNameButton
             // 
-            this.button2.Location = new System.Drawing.Point(138, 55);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(107, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Search by Name";
-            this.button2.UseVisualStyleBackColor = true;
+            this.searchNameButton.Location = new System.Drawing.Point(138, 55);
+            this.searchNameButton.Name = "searchNameButton";
+            this.searchNameButton.Size = new System.Drawing.Size(107, 23);
+            this.searchNameButton.TabIndex = 7;
+            this.searchNameButton.Text = "Search by Name";
+            this.searchNameButton.UseVisualStyleBackColor = true;
+            this.searchNameButton.Click += new System.EventHandler(this.searchNameButton_Click);
             // 
             // label1
             // 
@@ -130,11 +132,11 @@ namespace Project4
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.nameTextBox);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.searchYearButton);
+            this.panel1.Controls.Add(this.searchNameButton);
+            this.panel1.Controls.Add(this.yearTextBox);
             this.panel1.Location = new System.Drawing.Point(173, 355);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(265, 137);
@@ -157,41 +159,44 @@ namespace Project4
             this.label2.TabIndex = 11;
             this.label2.Text = "Genre:";
             // 
-            // button3
+            // memberModButton
             // 
-            this.button3.Location = new System.Drawing.Point(12, 411);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(123, 23);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "Modify a Member";
-            this.button3.UseVisualStyleBackColor = true;
+            this.memberModButton.Location = new System.Drawing.Point(12, 411);
+            this.memberModButton.Name = "memberModButton";
+            this.memberModButton.Size = new System.Drawing.Size(123, 23);
+            this.memberModButton.TabIndex = 12;
+            this.memberModButton.Text = "Modify a Member";
+            this.memberModButton.UseVisualStyleBackColor = true;
+            this.memberModButton.Click += new System.EventHandler(this.memberModButton_Click);
             // 
-            // button4
+            // addMemberButton
             // 
-            this.button4.Location = new System.Drawing.Point(12, 440);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(123, 23);
-            this.button4.TabIndex = 13;
-            this.button4.Text = "Add a Member";
-            this.button4.UseVisualStyleBackColor = true;
+            this.addMemberButton.Location = new System.Drawing.Point(12, 440);
+            this.addMemberButton.Name = "addMemberButton";
+            this.addMemberButton.Size = new System.Drawing.Size(123, 23);
+            this.addMemberButton.TabIndex = 13;
+            this.addMemberButton.Text = "Add a Member";
+            this.addMemberButton.UseVisualStyleBackColor = true;
+            this.addMemberButton.Click += new System.EventHandler(this.addMemberButton_Click);
             // 
-            // button5
+            // addMovieButton
             // 
-            this.button5.Location = new System.Drawing.Point(247, 326);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(123, 23);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "Add a Movie";
-            this.button5.UseVisualStyleBackColor = true;
+            this.addMovieButton.Location = new System.Drawing.Point(247, 326);
+            this.addMovieButton.Name = "addMovieButton";
+            this.addMovieButton.Size = new System.Drawing.Size(123, 23);
+            this.addMovieButton.TabIndex = 14;
+            this.addMovieButton.Text = "Add a Movie";
+            this.addMovieButton.UseVisualStyleBackColor = true;
+            this.addMovieButton.Click += new System.EventHandler(this.addMovieButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(457, 499);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.addMovieButton);
+            this.Controls.Add(this.addMemberButton);
+            this.Controls.Add(this.memberModButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.memberListBox);
             this.Controls.Add(this.panel1);
@@ -215,17 +220,17 @@ namespace Project4
         private System.Windows.Forms.ListBox genreListBox;
         private System.Windows.Forms.Button addGenreButton;
         private System.Windows.Forms.Button modifyGenreButton;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button searchYearButton;
+        private System.Windows.Forms.TextBox yearTextBox;
+        private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.Button searchNameButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListBox memberListBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button memberModButton;
+        private System.Windows.Forms.Button addMemberButton;
+        private System.Windows.Forms.Button addMovieButton;
     }
 }
 

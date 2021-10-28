@@ -24,6 +24,9 @@ namespace Project4
         Movie currentMovie;
 
        public GenreForm genre;
+        public MemberForm memb;
+        public MovieForm mov;
+
 
         MySqlConnection dbConnection;
 
@@ -45,10 +48,7 @@ namespace Project4
 
         }
 
-        private void ReadDB()
-        {
-            
-        }
+ 
 
         private void GetMoviesFromDb()
         {
@@ -207,10 +207,10 @@ namespace Project4
 
                     memberList.Add(currentMember);
 
-                    if (!genreListBox.Items.Contains(currentMember.Name))
+                    if (!memberListBox.Items.Contains(currentMember.Name))
                     {
 
-                        genreListBox.Items.Add(currentMember.Name);
+                        memberListBox.Items.Add(currentMember.Name);
                     }
                 }
 
@@ -266,8 +266,10 @@ namespace Project4
         {
             
 
-            // Clear the listview
-            movieListView.Items.Clear();
+           
+
+            string genre = genreListBox.SelectedItem.ToString();
+
 
             if (genreListBox.SelectedIndex == -1)
             {
@@ -276,32 +278,72 @@ namespace Project4
             }
             else
             {
-                // Variable for the index
-                int indexs = 0;
-                for (int y = 0; y < genreList.Count(); y++)
+                Movie currentMov;
+
+                // List<Movie> movieList = new List<Movie>();
+
+                try
                 {
-                    for (int x = 0; x < movieList.Count(); x++)
+                    // Clear the listview
+                    movieListView.Items.Clear();
+
+                    // Open the connection
+                    dbConnection.Open();
+
+                    // String to get movies
+                    string movieQuery = "select * from movie m, jt_genre_movie j , genre g where m.id = j.movie_id and g.code = j.genre_code and g.name = '" + genre + "';";
+
+
+                    // sql containing query to be executed
+                    MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
+
+
+                    // Store the results
+                    MySqlDataReader dataReader = dbComm.ExecuteReader();
+
+                    int index = 0;
+
+                    while (dataReader.Read())
                     {
-                        if (genreListBox.SelectedItem.ToString() == genreList[y].Name)
+                        // Create a new movie
+                        currentMov = new Movie();
+
+                       
+                        currentMov.Title = dataReader.GetString(1);
+
+                        for (int x = 0; x < movieList.Count(); x++)
                         {
-                            // View details                    
-                            movieListView.View = View.Details;
+                            if (currentMov.Title == movieList[x].Title)
+                            {
+                                movieListView.View = View.Details;
 
-                            // Add the title to the listview
-                            movieListView.Items.Add(movieList[x].Title);
+                                movieListView.Items.Add(movieList[x].Id.ToString());
+                                movieListView.Items[index].SubItems.Add(movieList[x].Title);
+                                movieListView.Items[index].SubItems.Add(movieList[x].Year.ToString());
 
-                            // Add the year to the listview
-                            movieListView.Items[indexs].SubItems.Add(movieList[x].Year.ToString());
+                                index += 1;
+                            }
+                                }
+                        currentMov.Title = "";
+                    }
 
-                            // Increment the index
-                            indexs = indexs + 1;
-                        }
-
+                    // Close the connection
+                    dbConnection.Close();
+                }
+                catch (MySqlException ex)
+                {
+                    if (dbConnection.State.ToString() == "Open")
+                    {
+                        // Close the connection
+                        dbConnection.Close();
                     }
                 }
+
+
+
             }
         }
-
+    
         private void Form1_Load(object sender, EventArgs e)
         {
             //   LoadFile(filePath);
@@ -310,6 +352,10 @@ namespace Project4
             Headers();
 
             GetGenreFromDb();
+
+            GetMoviesFromDb();
+
+            GetMemberFromDb();
         }
 
         private void movieListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -319,8 +365,9 @@ namespace Project4
 
         private void genreListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            GetMoviesFromDb();
+            // Clear the listview
+            movieListView.Items.Clear();
+            
             // Call the selected method
             Selected();
 
@@ -358,6 +405,154 @@ namespace Project4
         private void addGenreButton_Click(object sender, EventArgs e)
         {
             AddGenre();
+        }
+
+        private void RefreshMember()
+        {
+            // Clear the list box
+            memberListBox.Items.Clear();
+
+            for (int x = 0; x < memberList.Count(); x++)
+            {
+                if (!memberListBox.Items.Contains(memberList[x].Name))
+                {
+                    // Add to the listbox the genre name
+                    memberListBox.Items.Add(memberList[x].Name);
+                }
+            }
+        }
+        private void ModifyMember()
+        {
+            string memberName = memberListBox.SelectedItem.ToString();
+
+            for (int x = 0; x < genreList.Count(); x++)
+            {
+                if (memberName == memberList[x].Name)
+                {
+                    memb = new MemberForm(memberList[x]);
+
+                    memb.ShowDialog();
+
+                    RefreshMember();
+                }
+            }
+        }
+        private void memberModButton_Click(object sender, EventArgs e)
+        {
+            ModifyMember();
+        }
+
+        private void AddMember()
+        {
+            memb = new MemberForm();
+
+            memb.ShowDialog();
+
+            RefreshMember();
+        }
+
+        private void addMemberButton_Click(object sender, EventArgs e)
+        {
+            AddMember();
+        }
+
+
+        private void SearchName()
+        {
+            // Value to search for
+            string value = nameTextBox.Text.ToLower();
+
+            // Variables for a counter and index
+            int counter = 0;
+            int index = 0;
+
+            // Clear the listview
+            movieListView.Items.Clear();
+
+            for (int x = 0; x < movieList.Count(); x++)
+            {
+                // Variable for the movie title in the list to lower
+                string lower = movieList[x].Title.ToLower();
+
+                if (lower.Contains(value))
+                {
+                    // Add the title and the year of the searched movie(s)
+                    movieListView.Items.Add(movieList[x].Id.ToString());
+                    movieListView.Items[index].SubItems.Add(movieList[x].Title);
+                    movieListView.Items[index].SubItems.Add(movieList[x].Year.ToString());
+
+                    // Increment the indexs
+                    index += 1;
+                    counter++;
+                }
+            }
+            if (counter == 0)
+            {
+                // No movies found
+                MessageBox.Show("No Movies with this name were found.");
+            }
+        }
+        private void searchNameButton_Click(object sender, EventArgs e)
+        {
+            // Call the search by name method
+            SearchName();
+        }
+
+        private void SearchYear()
+        {
+            // Value to search for
+            int value = int.Parse(yearTextBox.Text);
+
+            // Variables for a counter and index
+            int counter = 0;
+            int index = 0;
+
+            // Clear the listview
+            movieListView.Items.Clear();
+
+            for (int x = 0; x < movieList.Count(); x++)
+            {
+                // Variable for the movie title in the list to lower
+                int year = movieList[x].Year;
+
+                if (year == value)
+                {
+                    // Add the title and the year of the searched movie(s)
+                    movieListView.Items.Add(movieList[x].Id.ToString());
+                    movieListView.Items[index].SubItems.Add(movieList[x].Title);
+                    movieListView.Items[index].SubItems.Add(movieList[x].Year.ToString());
+
+                    // Increment the indexs
+                    index += 1;
+                    counter++;
+                }
+            }
+            if (counter == 0)
+            {
+                // No movies found
+                MessageBox.Show("No Movies with this year were found.");
+            }
+        }
+
+        private void searchYearButton_Click(object sender, EventArgs e)
+        {
+            // Call the search by year method
+            SearchYear();
+        }
+
+       
+        private void AddMovie()
+        {
+            mov = new MovieForm();
+
+            mov.ShowDialog();
+
+            Selected();
+        }
+        private void addMovieButton_Click(object sender, EventArgs e)
+        {
+            // Call the add movie method
+            AddMovie();
         }
     }
 }
