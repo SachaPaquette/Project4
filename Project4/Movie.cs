@@ -38,7 +38,6 @@ namespace Project4
         public string Genre { get; set; }
         public string Title { get; set; }
         public int Year { get; set; }
-
         public string Length { get; set; }
         public string Director { get; set; }
         public double Rating { get; set; }

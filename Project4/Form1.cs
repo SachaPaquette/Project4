@@ -269,7 +269,7 @@ namespace Project4
 
            
 
-            string genre = genreListBox.SelectedItem.ToString();
+            
 
 
             if (genreListBox.SelectedIndex == -1)
@@ -279,6 +279,8 @@ namespace Project4
             }
             else
             {
+                string genre = genreListBox.SelectedItem.ToString();
+
                 Movie currentMov;
 
                 // List<Movie> movieList = new List<Movie>();
@@ -345,28 +347,38 @@ namespace Project4
             }
         }
     
+       
         private void Form1_Load(object sender, EventArgs e)
         {
             //   LoadFile(filePath);
             //This method sets up a connection to a MySQL database
-            SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "test_db");
+            SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "db_test");
+
+            // Call the header method
             Headers();
 
+            // Call the method to get the genre from the database
             GetGenreFromDb();
 
+            // Call the method to get the movies from the database
             GetMoviesFromDb();
 
+            // Call the method to get the members from the database
             GetMemberFromDb();
         }
 
         private void movieListView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Variable for the selected movie
             string selected = movieListView.SelectedItems[0].SubItems[0].Text; 
 
+            // Create new movie form
             mov = new MovieForm(movieList,  Convert.ToInt32(selected));
 
+            // Show the new movie form
             mov.Show();
 
+            // Call the method to refresh the listview
             Selected();
         }
         
@@ -383,35 +395,45 @@ namespace Project4
         }
         private void ModifyGenre()
         {
+            // Variable for the genre name
             string genreName = genreListBox.SelectedItem.ToString();
+
             for (int x = 0; x < genreList.Count(); x++)
             {
                 if (genreName == genreList[x].Name)
                 {
+                    // Create a new genre form
                     genre = new GenreForm(genreList[x]);
 
+                    // Show the new form
                     genre.ShowDialog();
 
+                    // Call the method to refresh the genre listbox
                     RefreshGenre();
                 }
             }
         }
         private void modifyGenreButton_Click(object sender, EventArgs e)
         {
+            // Call the modify genre method
             ModifyGenre();
         }
 
         private void AddGenre()
         {
+            // create new genre form
             genre = new GenreForm();
 
+            // Show the form
             genre.ShowDialog();
 
+            // Call the method to refresh the genre listbox
             RefreshGenre();
         }
 
         private void addGenreButton_Click(object sender, EventArgs e)
         {
+            // Call the add genre method
             AddGenre();
         }
 
@@ -431,36 +453,45 @@ namespace Project4
         }
         private void ModifyMember()
         {
+            // Variable for the member name that is selected
             string memberName = memberListBox.SelectedItem.ToString();
 
             for (int x = 0; x < genreList.Count(); x++)
             {
                 if (memberName == memberList[x].Name)
                 {
+                    // Create new member form
                     memb = new MemberForm(memberList[x]);
 
+                    // Show the form
                     memb.ShowDialog();
 
+                    // Call the refresh member method
                     RefreshMember();
                 }
             }
         }
         private void memberModButton_Click(object sender, EventArgs e)
         {
+            // Call the modify member method
             ModifyMember();
         }
 
         private void AddMember()
         {
+            // Create new member form
             memb = new MemberForm();
 
+            // Show new form
             memb.ShowDialog();
 
+            // Call the refresh member list box method
             RefreshMember();
         }
 
         private void addMemberButton_Click(object sender, EventArgs e)
         {
+            // Call the add member method
             AddMember();
         }
 
@@ -551,16 +582,31 @@ namespace Project4
        
         private void AddMovie()
         {
-            mov = new MovieForm(movieList, -1);
+          
+                // Create new movie form
+                mov = new MovieForm(movieList, -1);
 
-            mov.ShowDialog();
+                // Show form
+                mov.ShowDialog();
 
-            Selected();
+            if (genreListBox.SelectedIndex != -1)
+            {
+                // Call the method to refresh movies listview
+                Selected();
+            }
         }
         private void addMovieButton_Click(object sender, EventArgs e)
         {
             // Call the add movie method
             AddMovie();
+        }
+
+        private void SaveMovies()
+        {
+            for(int x = 0; x < movieList.Count(); x++)
+            {
+
+            }
         }
     }
 }
