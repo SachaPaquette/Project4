@@ -18,13 +18,13 @@ namespace Project4
 
         // Variable for the list
         public static List<Movie> movieList = new List<Movie>();
-       public static List<Genre> genreList = new List<Genre>();
+        public static List<Genre> genreList = new List<Genre>();
         public static List<Member> memberList = new List<Member>();
 
         // Variable for the movie that will be read
         Movie currentMovie;
 
-       public GenreForm genre;
+        public GenreForm genre;
         public MemberForm memb;
         public MovieForm mov;
 
@@ -49,13 +49,13 @@ namespace Project4
 
         }
 
- 
+
 
         private void GetMoviesFromDb()
         {
             Movie currentMov;
 
-           // List<Movie> movieList = new List<Movie>();
+
 
             try
             {
@@ -74,7 +74,7 @@ namespace Project4
                 MySqlDataReader dataReader = dbComm.ExecuteReader();
 
 
-                while(dataReader.Read())
+                while (dataReader.Read())
                 {
                     // Create a new movie
                     currentMov = new Movie();
@@ -83,14 +83,16 @@ namespace Project4
                     currentMov.Title = dataReader.GetString(1);
                     currentMov.Year = dataReader.GetInt32(2);
                     currentMov.Length = dataReader.GetString(3);
-                    currentMov.Path = dataReader.GetString(4);
+                    currentMov.Rating = double.Parse(dataReader.GetString(4));
+                    currentMov.Path = dataReader.GetString(5);
 
+                    Console.WriteLine(currentMov.Path);
                     movieList.Add(currentMov);
                 }
                 // Close the connection
                 dbConnection.Close();
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
             {
                 if (dbConnection.State.ToString() == "Open")
                 {
@@ -104,7 +106,7 @@ namespace Project4
         {
             Genre currentGenre;
 
-            
+
 
             try
             {
@@ -139,7 +141,7 @@ namespace Project4
 
                         genreListBox.Items.Add(currentGenre.Name);
                     }
-                    }
+                }
 
 
 
@@ -175,7 +177,7 @@ namespace Project4
 
         private void GetMemberFromDb()
         {
-           Member currentMember;
+            Member currentMember;
 
 
 
@@ -206,17 +208,15 @@ namespace Project4
                     currentMember.DoB = dataReader.GetDateTime(2);
                     currentMember.TypeId = dataReader.GetInt32(3);
 
+                    // Add to the member list
                     memberList.Add(currentMember);
 
                     if (!memberListBox.Items.Contains(currentMember.Name))
                     {
-
+                        // Add the member to the listbox
                         memberListBox.Items.Add(currentMember.Name);
                     }
                 }
-
-
-
 
                 // Close the connection
                 dbConnection.Close();
@@ -265,12 +265,6 @@ namespace Project4
 
         private void Selected()
         {
-            
-
-           
-
-            
-
 
             if (genreListBox.SelectedIndex == -1)
             {
@@ -311,7 +305,7 @@ namespace Project4
                         // Create a new movie
                         currentMov = new Movie();
 
-                       
+
                         currentMov.Title = dataReader.GetString(1);
 
                         for (int x = 0; x < movieList.Count(); x++)
@@ -326,7 +320,7 @@ namespace Project4
 
                                 index += 1;
                             }
-                                }
+                        }
                         currentMov.Title = "";
                     }
 
@@ -346,8 +340,8 @@ namespace Project4
 
             }
         }
-    
-       
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
             //   LoadFile(filePath);
@@ -370,10 +364,10 @@ namespace Project4
         private void movieListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Variable for the selected movie
-            string selected = movieListView.SelectedItems[0].SubItems[0].Text; 
+            string selected = movieListView.SelectedItems[0].SubItems[0].Text;
 
             // Create new movie form
-            mov = new MovieForm(movieList,  Convert.ToInt32(selected));
+            mov = new MovieForm(movieList, Convert.ToInt32(selected));
 
             // Show the new movie form
             mov.Show();
@@ -381,17 +375,17 @@ namespace Project4
             // Call the method to refresh the listview
             Selected();
         }
-        
+
 
         private void genreListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Clear the listview
             movieListView.Items.Clear();
-            
+
             // Call the selected method
             Selected();
 
-            
+
         }
         private void ModifyGenre()
         {
@@ -579,15 +573,15 @@ namespace Project4
             SearchYear();
         }
 
-       
+
         private void AddMovie()
         {
-          
-                // Create new movie form
-                mov = new MovieForm(movieList, -1);
 
-                // Show form
-                mov.ShowDialog();
+            // Create new movie form
+            mov = new MovieForm(movieList, -1);
+
+            // Show form
+            mov.ShowDialog();
 
             if (genreListBox.SelectedIndex != -1)
             {
@@ -603,9 +597,46 @@ namespace Project4
 
         private void SaveMovies()
         {
-            for(int x = 0; x < movieList.Count(); x++)
+            for (int x = 0; x < movieList.Count(); x++)
             {
 
+                try
+                {
+                    // Open the connection
+                    dbConnection.Open();
+
+                    for (int y = 0; x < movieList.Count(); x++)
+                    {
+
+
+                        // String to get movies
+                        string movieQuery = "Insert into member(id, title, year, length, audience_rating, image_file_path) VALUES(" + movieList[x].Id + ", '" + movieList[x].Title + "' ," + movieList[x].Year + ", '" + movieList[x].Length + "' ," + movieList[x].Rating + ", '" + movieList[x].Path + "');";
+                       
+                        // sql containing query to be executed
+                        MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
+                    }
+
+
+                   
+
+
+                    // Store the results
+                  //  MySqlDataReader dataReader = dbComm.ExecuteReader();
+
+
+                    
+
+                    // Close the connection
+                    dbConnection.Close();
+                }
+                catch (MySqlException ex)
+                {
+                    if (dbConnection.State.ToString() == "Open")
+                    {
+                        // Close the connection
+                        dbConnection.Close();
+                    }
+                }
             }
         }
     }
