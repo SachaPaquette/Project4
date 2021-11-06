@@ -604,23 +604,37 @@ namespace Project4
                 {
                     // Open the connection
                     dbConnection.Open();
+                    string selectQuery = "Select m.id from movie m";
+                    MySqlCommand testSelect = new MySqlCommand(selectQuery, dbConnection);
+                    MySqlDataReader dataReader = testSelect.ExecuteReader();
+
+                    //Check to see if the new movie has an existing ID in the db 
+                    int index = 0;
+                    List<int> idsMovie = new List<int>();
+                    while (dataReader.Read())
+                    {
+                        idsMovie.Add(dataReader.GetInt32(0));
+
+                        index++;
+                    }
 
                     for (int y = 0; x < movieList.Count(); x++)
                     {
 
+                        if (!idsMovie.Contains(movieList[x].Id))
+                        {
+                            string movieQuery = "Insert into movie(id, title, year, length, audience_rating, image_file_path) VALUES(" + movieList[x].Id + ", '" + movieList[x].Title + "' ," + movieList[x].Year + ", '" + movieList[x].Length + "' ," + movieList[x].Rating + ", '" + movieList[x].Path + "');";
 
-                        // String to get movies
-                        string movieQuery = "Insert into member(id, title, year, length, audience_rating, image_file_path) VALUES(" + movieList[x].Id + ", '" + movieList[x].Title + "' ," + movieList[x].Year + ", '" + movieList[x].Length + "' ," + movieList[x].Rating + ", '" + movieList[x].Path + "');";
-                       
-                        // sql containing query to be executed
-                        MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
+                            // sql containing query to be executed
+                            MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
+                        }                        
                     }
 
 
                    
 
 
-                    // Store the results
+                  // Store the results
                   //  MySqlDataReader dataReader = dbComm.ExecuteReader();
 
 
