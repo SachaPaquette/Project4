@@ -18,7 +18,7 @@ namespace Project4
         public int selected;
         MySqlConnection dbConnection;
         public List<Genre> genreList;
-        public string selectedGenre; 
+         string selectedGenre; 
 
         public MovieForm(List<Movie> movieList, int selectedMovie)
         {
@@ -103,9 +103,9 @@ namespace Project4
             {
                 if(selected == listMovie[i].Id)
                 {
-                    listMovie[i].Genre = selectedGenre;
+                    
                     titleTextBox.Text = listMovie[i].Title;
-                    genreTextBox.Text = listMovie[i].Genre;
+                    
                     yearTextBox.Text = listMovie[i].Year.ToString();
                     lengthTextBox.Text = listMovie[i].Length.ToString();
                     directorTextBox.Text = listMovie[i].Director;
@@ -137,6 +137,8 @@ namespace Project4
 
         public void GetGenreFromDb() 
         {
+            
+            List<Genre> genreList = new List<Genre>();
             Genre currentGenre;
 
 
@@ -144,49 +146,31 @@ namespace Project4
             try
             {
                 // Open the connection
-                dbConnection.Open();
+               dbConnection.Open();
 
-                // String to get movies
-                string movieQuery = "Select * FROM jt_genre_movie WHERE movie_id = " + selected + " ;";
-
+                string movieQuery2 = "Select * FROM genre g, movie m, jt_genre_movie j WHERE g.code = j.genre_code and j.movie_id = m.id and j.movie_id = " + selected + " and m.title = '" + titleTextBox.Text + "';";
 
                 // sql containing query to be executed
-                MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
+                MySqlCommand dbComm = new MySqlCommand(movieQuery2, dbConnection);
 
 
                 // Store the results
                 MySqlDataReader dataReader = dbComm.ExecuteReader();
-                //PROBLEM WITH THIS 
+
                 while (dataReader.Read())
-                {
-                    // Create a new movie
-                    currentGenre = new Genre();
-
-                    string genreCode = dataReader.GetString(0);
-                    int movie_id = dataReader.GetInt32(1);
-                    if(movie_id == selected)
-                    {
-                        string movieQuery2 = "Select * FROM genre WHERE code = " + genreCode + ";";
-
-                        MySqlCommand genreMovie = new MySqlCommand(movieQuery2, dbConnection);
-
-                        MySqlDataReader reader = genreMovie.ExecuteReader();
-
-                        while (reader.Read())
                         {
-                            /*
-                            currentGenre.Code = reader.GetString(0);
-                            currentGenre.Name = reader.GetString(1);
-                            currentGenre.Description = reader.GetString(2);
-                            genreList.Add(currentGenre);
-                            */
-                            selectedGenre = reader.GetString(0);
-                            
-                            
-                        }
+                    currentGenre = new Genre();
+                         
+                            selectedGenre = dataReader.GetString(1);
 
+                    for (int i = 0; i < listMovie.Count(); i++)
+                    {
+                        listMovie[i].Genre = selectedGenre;
+                        genreTextBox.Text = listMovie[i].Genre;
                     }
+
                 }
+                
 
                 
 
@@ -208,8 +192,10 @@ namespace Project4
             if (selected >= 0)
             {
                 SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "db_test");
-                GetGenreFromDb();
+                
                 LoadTextBoxes();
+                GetGenreFromDb();
+               // LoadTextBoxes(); // Need to reload to get genre
                 GetMovieMember();
             }
         }

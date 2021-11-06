@@ -84,6 +84,19 @@ namespace Project4
 
         }
 
+        private void AddMember()
+        {
+            if (CheckIfFormOK() == true)
+            {
+                Member memb = new Member();
 
+                memb.Id = int.Parse(idTextBox.Text);
+                memb.Name = nameTextBox.Text;
+                memb.DoB = DateTime.Parse(dobTextBox.Text);
+                memb.TypeId = int.Parse(typeTextBox.Text);
+
+                Form1.memberList.Add(memb);
+            }
+        }
     }
 }

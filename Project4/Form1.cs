@@ -610,7 +610,7 @@ namespace Project4
 
 
                         // String to get movies
-                        string movieQuery = "Insert into member(id, title, year, length, audience_rating, image_file_path) VALUES(" + movieList[x].Id + ", '" + movieList[x].Title + "' ," + movieList[x].Year + ", '" + movieList[x].Length + "' ," + movieList[x].Rating + ", '" + movieList[x].Path + "');";
+                        string movieQuery = "Insert into movie(id, title, year, length, audience_rating, image_file_path) VALUES(" + movieList[x].Id + ", '" + movieList[x].Title + "' ," + movieList[x].Year + ", '" + movieList[x].Length + "' ," + movieList[x].Rating + ", '" + movieList[x].Path + "');";
                        
                         // sql containing query to be executed
                         MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
