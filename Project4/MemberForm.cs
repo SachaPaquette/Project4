@@ -13,16 +13,20 @@ namespace Project4
     public partial class MemberForm : Form
     {
         public Member modifiedMember { get; set; }
-        public MemberForm()
+        public int AddM { get; set; }
+        public MemberForm(int addM)
         {
             InitializeComponent();
+            AddM = addM;
         }
 
-        public MemberForm(Member memb)
+        public MemberForm(Member memb, int addM)
         {
             InitializeComponent();
 
             modifiedMember = memb;
+            AddM = addM;
+
         }
 
         private bool CheckIfFieldOK(string field, string fieldType)
@@ -36,8 +40,10 @@ namespace Project4
             {
                 // Error message
                 MessageBox.Show("At least one required field is empty");
-
-                return false;
+                MessageBox.Show("The Member Was not Modified");
+                AddM = 3;
+                this.Close();
+                
             }
 
             //Checks if the string (the user input) corresponds to the expected data type
@@ -95,11 +101,17 @@ namespace Project4
 
                 memb.Id = int.Parse(idTextBox.Text);
                 memb.Name = nameTextBox.Text;
-                string[] token =  dobPicker.Text.Split(' ');
-                memb.DoB = DateTime.Parse(token[0]);
+
+                memb.DoB = DateTime.Parse(dobPicker.Text);
                 memb.TypeId = int.Parse(typeTextBox.Text);
 
                 Form1.memberList.Add(memb);
+            }
+            else
+            {
+                AddM = 3;
+                this.Close();
+                
             }
         }
 
@@ -115,20 +127,33 @@ namespace Project4
                 modifiedMember.TypeId = int.Parse(typeTextBox.Text);
 
             }
+            else
+            {
+                this.Close();
+
+                AddM = 3;
+            }
+           
         }
         private void MemberForm_FormClosing(object sender, FormClosingEventArgs e)
         {
 
-            if (modifiedMember is null)
+            
+            if (AddM == 1)
             {
                 // Call the add member method
                 AddMember();
             }
-            else
+            else if(AddM == 2)
             {
                 // Call the modify member method
                 ModifyMember();
             }
+            else if(AddM == 3)
+            {
+
+            }
+            
         }
     }
 }

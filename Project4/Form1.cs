@@ -469,12 +469,12 @@ namespace Project4
             // Variable for the member name that is selected
             string memberName = memberListBox.SelectedItem.ToString();
 
-            for (int x = 0; x < genreList.Count(); x++)
+            for (int x = 0; x < memberList.Count(); x++)
             {
                 if (memberName == memberList[x].Name)
                 {
                     // Create new member form
-                    memb = new MemberForm(memberList[x]);
+                    memb = new MemberForm(memberList[x], 2);
 
                     // Show the form
                     memb.ShowDialog();
@@ -500,7 +500,7 @@ namespace Project4
         private void AddMember()
         {
             // Create new member form
-            memb = new MemberForm();
+            memb = new MemberForm(1);
 
             // Show new form
             memb.ShowDialog();
@@ -781,6 +781,14 @@ namespace Project4
                 }
             }
 
+        }
+
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            saveGenre();
+            saveMember();
+            SaveMovies();
         }
     }
 }
