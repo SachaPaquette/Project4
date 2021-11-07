@@ -34,21 +34,21 @@ namespace Project4
             this.titleLabel = new System.Windows.Forms.Label();
             this.idTextBox = new System.Windows.Forms.TextBox();
             this.lengthLabel = new System.Windows.Forms.Label();
-            this.dobTextBox = new System.Windows.Forms.TextBox();
             this.genreLabel = new System.Windows.Forms.Label();
             this.yearLabel = new System.Windows.Forms.Label();
             this.typeTextBox = new System.Windows.Forms.TextBox();
+            this.dobPicker = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.dobPicker);
             this.panel1.Controls.Add(this.nameTextBox);
             this.panel1.Controls.Add(this.titleLabel);
             this.panel1.Controls.Add(this.idTextBox);
             this.panel1.Controls.Add(this.lengthLabel);
-            this.panel1.Controls.Add(this.dobTextBox);
             this.panel1.Controls.Add(this.genreLabel);
             this.panel1.Controls.Add(this.yearLabel);
             this.panel1.Controls.Add(this.typeTextBox);
@@ -89,13 +89,6 @@ namespace Project4
             this.lengthLabel.TabIndex = 28;
             this.lengthLabel.Text = "Type Id:";
             // 
-            // dobTextBox
-            // 
-            this.dobTextBox.Location = new System.Drawing.Point(80, 117);
-            this.dobTextBox.Name = "dobTextBox";
-            this.dobTextBox.Size = new System.Drawing.Size(127, 20);
-            this.dobTextBox.TabIndex = 29;
-            // 
             // genreLabel
             // 
             this.genreLabel.AutoSize = true;
@@ -121,6 +114,13 @@ namespace Project4
             this.typeTextBox.Size = new System.Drawing.Size(127, 20);
             this.typeTextBox.TabIndex = 30;
             // 
+            // dobPicker
+            // 
+            this.dobPicker.Location = new System.Drawing.Point(80, 120);
+            this.dobPicker.Name = "dobPicker";
+            this.dobPicker.Size = new System.Drawing.Size(127, 20);
+            this.dobPicker.TabIndex = 32;
+            // 
             // MemberForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -129,6 +129,7 @@ namespace Project4
             this.Controls.Add(this.panel1);
             this.Name = "MemberForm";
             this.Text = "MemberForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MemberForm_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -142,9 +143,9 @@ namespace Project4
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.TextBox idTextBox;
         private System.Windows.Forms.Label lengthLabel;
-        private System.Windows.Forms.TextBox dobTextBox;
         private System.Windows.Forms.Label genreLabel;
         private System.Windows.Forms.Label yearLabel;
         private System.Windows.Forms.TextBox typeTextBox;
+        private System.Windows.Forms.DateTimePicker dobPicker;
     }
 }

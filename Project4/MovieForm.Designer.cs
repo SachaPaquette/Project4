@@ -259,7 +259,6 @@ namespace Project4
             this.memberListBox.Name = "memberListBox";
             this.memberListBox.Size = new System.Drawing.Size(163, 420);
             this.memberListBox.TabIndex = 23;
-            this.memberListBox.SelectedIndexChanged += new System.EventHandler(this.memberListBox_SelectedIndexChanged);
             // 
             // label1
             // 

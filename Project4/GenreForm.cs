@@ -24,6 +24,12 @@ namespace Project4
 
             modifiedGenre = genree;
         }
+        /// <summary>
+        /// Method to check if field is ok
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="fieldType"></param>
+        /// <returns></returns>
         private bool CheckIfFieldOK(string field, string fieldType)
         {
             // Variables for the type of input 
@@ -83,7 +89,9 @@ namespace Project4
             return formOK;
 
         }
-
+        /// <summary>
+        /// Method to add a genre
+        /// </summary>
         private void AddGenre()
         {
             if (CheckIfFormOK() == true)
@@ -97,7 +105,9 @@ namespace Project4
                 Form1.genreList.Add(genr);
             }
         }
-
+        /// <summary>
+        /// Method to modify genre
+        /// </summary>
         private void Modify()
         {
             if (CheckIfFormOK() == true)
@@ -107,15 +117,22 @@ namespace Project4
                 modifiedGenre.Description = descriptionTextBox.Text;
             }
         }
+        /// <summary>
+        /// If form is closed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GenreForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (modifiedGenre is null)
             {
+                // Call the add genre method
                 AddGenre();
 
             }
             else
             {
+                // Call the modify method
                 Modify();
             }
             }
