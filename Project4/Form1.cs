@@ -346,7 +346,7 @@ namespace Project4
         {
             //   LoadFile(filePath);
             //This method sets up a connection to a MySQL database
-            SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "db_test");
+            SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "test_db");
 
             // Call the header method
             Headers();
