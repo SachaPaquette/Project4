@@ -12,6 +12,7 @@ namespace Project4
 {
     public partial class MemberForm : Form
     {
+        public Member modifiedMember { get; set; }
         public MemberForm()
         {
             InitializeComponent();
@@ -20,6 +21,8 @@ namespace Project4
         public MemberForm(Member memb)
         {
             InitializeComponent();
+
+            modifiedMember = memb;
         }
 
         private bool CheckIfFieldOK(string field, string fieldType)
@@ -74,11 +77,10 @@ namespace Project4
 
             // Check if the inputs are correct 
             formOK = formOK && CheckIfFieldOK(idTextBox.Text, "int");
-            formOK = formOK && CheckIfFieldOK(nameTextBox.Text, "string");
-            formOK = formOK && CheckIfFieldOK(dobTextBox.Text, "");
+            formOK = formOK && CheckIfFieldOK(nameTextBox.Text, "string");          
             formOK = formOK && CheckIfFieldOK(typeTextBox.Text, "int");
 
-            // No need to check if path is ok since the path will to be user entered.
+            // No need to check if dob is ok 
 
             return formOK;
 
@@ -88,14 +90,44 @@ namespace Project4
         {
             if (CheckIfFormOK() == true)
             {
+                // Create new member
                 Member memb = new Member();
 
                 memb.Id = int.Parse(idTextBox.Text);
                 memb.Name = nameTextBox.Text;
-                memb.DoB = DateTime.Parse(dobTextBox.Text);
+                string[] token =  dobPicker.Text.Split(' ');
+                memb.DoB = DateTime.Parse(token[0]);
                 memb.TypeId = int.Parse(typeTextBox.Text);
 
                 Form1.memberList.Add(memb);
+            }
+        }
+
+
+        private void ModifyMember()
+        {
+            if (CheckIfFormOK() == true)
+            {
+                modifiedMember.Id = int.Parse(idTextBox.Text);
+                modifiedMember.Name = nameTextBox.Text;
+                string[] token = dobPicker.Text.Split(' ');
+                modifiedMember.DoB = DateTime.Parse(token[0]);
+                modifiedMember.TypeId = int.Parse(typeTextBox.Text);
+
+            }
+        }
+        private void MemberForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            if (modifiedMember is null)
+            {
+                // Call the add member method
+                AddMember();
+            }
+            else
+            {
+                // Call the modify member method
+                ModifyMember();
             }
         }
     }

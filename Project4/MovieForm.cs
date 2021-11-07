@@ -195,8 +195,9 @@ namespace Project4
                 
                 LoadTextBoxes();
                 GetGenreFromDb();
-               // LoadTextBoxes(); // Need to reload to get genre
+               
                 GetMovieMember();
+                GetDirector();
             }
         }
 
@@ -274,13 +275,9 @@ namespace Project4
                     currentMember.DoB = dataReader.GetDateTime(2);
                     currentMember.TypeId = dataReader.GetInt32(3);
 
-                    memberListBox.Items.Add(currentMember.Name);
-
-                   
+                    // Add the member to the listbox
+                    memberListBox.Items.Add(currentMember.Name);                 
                 }
-
-
-
 
                 // Close the connection
                 dbConnection.Close();
@@ -294,18 +291,63 @@ namespace Project4
                 }
             }
         }
-        private void Member()
+        private void GetDirector()
         {
-            for (int x = 0; x < Form1.memberList.Count(); x++)
+            Member currentMember;
+            try
             {
-               // if (Form1.memberList[x].Id == )
+                // Open the connection
+                dbConnection.Open();
+
+                // String to get movies
+                string movieQuery = "Select * FROM member m, jt_movie_member j, movie n, member_type b where j.movie_id = n.id and m.id = j.member_id and n.title = '" + titleTextBox.Text + "' and b.id = 2;";
+
+
+                // sql containing query to be executed
+                MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
+
+                // Store the results
+                MySqlDataReader dataReader = dbComm.ExecuteReader();
+
+
+                while (dataReader.Read())
+                {
+                    // Create a new movie
+                    currentMember = new Member();
+
+                    currentMember.Id = dataReader.GetInt32(0);
+                    currentMember.Name = dataReader.GetString(1);
+                    currentMember.DoB = dataReader.GetDateTime(2);
+                    currentMember.TypeId = dataReader.GetInt32(3);
+
+                    // Set the directors name in the textbox
+                    directorTextBox.Text = currentMember.Name;
+
+                    
+                }
+
+                // Check if the movie has no director
+                if (directorTextBox.Text == "")
+                {
+                    directorTextBox.Text = "None";
+                }
+
+                // Close the connection
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    // Close the connection
+                    dbConnection.Close();
+                }
             }
         }
-        private void memberListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
+       
+        /// <summary>
+        /// Method to modify
+        /// </summary>
         private void Modify()
         {
             if (CheckIfFormOK() == true)
@@ -320,12 +362,19 @@ namespace Project4
                 listMovie[selected].Path = pathTextBox.Text;
             }
         }
+        /// <summary>
+        /// Modify button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void modifyButton_Click(object sender, EventArgs e)
         {
             // Call the modiy method
             Modify();
         }
-
+        /// <summary>
+        /// Method to add a movie
+        /// </summary>
         private void AddMovie()
         {
             if (CheckIfFormOK() == true)
@@ -346,7 +395,11 @@ namespace Project4
                     Form1.movieList.Add(mov);      
             }
         }
-
+        /// <summary>
+        /// Add movie button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addMovieButton_Click(object sender, EventArgs e)
         {
             // Call the add a movie method

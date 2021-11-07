@@ -37,25 +37,18 @@ namespace Project4
         }
         private void SetDBConnection(string serverAddress, string serverPort, string username, string passwd, string dbName)
         {
-
-            // For connection testing purposes
-            //string conectionString = "server=127.0.0.1; user=user1; database=test; port=3306; password=oop2; SSL Mode=None";
-
+            // Variable for the connection
             string conectionString = "server=" + serverAddress + "; port=" + serverPort + "; user=" + username + "; password=" + passwd + "; database=" + dbName + "; SSL Mode=None;";
 
-            Console.WriteLine(conectionString);
-
+           // Connection
             dbConnection = new MySqlConnection(conectionString);
 
         }
 
-
-
         private void GetMoviesFromDb()
         {
+            // Create movie
             Movie currentMov;
-
-
 
             try
             {
@@ -65,14 +58,11 @@ namespace Project4
                 // String to get movies
                 string movieQuery = "Select * FROM movie;";
 
-
                 // sql containing query to be executed
                 MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
 
-
                 // Store the results
                 MySqlDataReader dataReader = dbComm.ExecuteReader();
-
 
                 while (dataReader.Read())
                 {
@@ -86,9 +76,10 @@ namespace Project4
                     currentMov.Rating = double.Parse(dataReader.GetString(4));
                     currentMov.Path = dataReader.GetString(5);
 
-                    Console.WriteLine(currentMov.Path);
+                    // Add the movie to the list
                     movieList.Add(currentMov);
                 }
+
                 // Close the connection
                 dbConnection.Close();
             }
@@ -104,9 +95,8 @@ namespace Project4
 
         private void GetGenreFromDb()
         {
+            // Create genre
             Genre currentGenre;
-
-
 
             try
             {
@@ -115,7 +105,6 @@ namespace Project4
 
                 // String to get movies
                 string movieQuery = "Select * FROM genre;";
-
 
                 // sql containing query to be executed
                 MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
@@ -127,24 +116,22 @@ namespace Project4
 
                 while (dataReader.Read())
                 {
-                    // Create a new movie
+                    // Create a new genre
                     currentGenre = new Genre();
 
                     currentGenre.Code = dataReader.GetString(0);
                     currentGenre.Name = dataReader.GetString(1);
                     currentGenre.Description = dataReader.GetString(2);
 
+                    // Add the genre to the list
                     genreList.Add(currentGenre);
 
                     if (!genreListBox.Items.Contains(currentGenre.Name))
                     {
-
+                        // Add the genre to the listbox
                         genreListBox.Items.Add(currentGenre.Name);
                     }
                 }
-
-
-
 
                 // Close the connection
                 dbConnection.Close();
@@ -177,9 +164,8 @@ namespace Project4
 
         private void GetMemberFromDb()
         {
+            // Create member
             Member currentMember;
-
-
 
             try
             {
@@ -273,11 +259,11 @@ namespace Project4
             }
             else
             {
+                // Variable for the selected genre
                 string genre = genreListBox.SelectedItem.ToString();
 
+                // Create movie
                 Movie currentMov;
-
-                // List<Movie> movieList = new List<Movie>();
 
                 try
                 {
@@ -294,10 +280,10 @@ namespace Project4
                     // sql containing query to be executed
                     MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
 
-
                     // Store the results
                     MySqlDataReader dataReader = dbComm.ExecuteReader();
 
+                    // Variable for the index
                     int index = 0;
 
                     while (dataReader.Read())
@@ -305,22 +291,26 @@ namespace Project4
                         // Create a new movie
                         currentMov = new Movie();
 
-
+                        // Assign the title
                         currentMov.Title = dataReader.GetString(1);
 
                         for (int x = 0; x < movieList.Count(); x++)
                         {
                             if (currentMov.Title == movieList[x].Title)
                             {
+                                // View details
                                 movieListView.View = View.Details;
 
+                                // Add the items
                                 movieListView.Items.Add(movieList[x].Id.ToString());
                                 movieListView.Items[index].SubItems.Add(movieList[x].Title);
                                 movieListView.Items[index].SubItems.Add(movieList[x].Year.ToString());
 
+                                // Increment the index
                                 index += 1;
                             }
                         }
+                        // Reset the title
                         currentMov.Title = "";
                     }
 
@@ -341,7 +331,11 @@ namespace Project4
             }
         }
 
-
+        /// <summary>
+        /// When the form loads
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
             //   LoadFile(filePath);
@@ -360,7 +354,11 @@ namespace Project4
             // Call the method to get the members from the database
             GetMemberFromDb();
         }
-
+        /// <summary>
+        /// When a movie is selected in the listview
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void movieListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Variable for the selected movie
@@ -376,7 +374,11 @@ namespace Project4
             Selected();
         }
 
-
+        /// <summary>
+        /// When a genre is selected in the listbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void genreListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Clear the listview
@@ -384,9 +386,10 @@ namespace Project4
 
             // Call the selected method
             Selected();
-
-
         }
+        /// <summary>
+        /// Method to modify a genre
+        /// </summary>
         private void ModifyGenre()
         {
             // Variable for the genre name
@@ -407,12 +410,19 @@ namespace Project4
                 }
             }
         }
+        /// <summary>
+        /// Modify genre button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void modifyGenreButton_Click(object sender, EventArgs e)
         {
             // Call the modify genre method
             ModifyGenre();
         }
-
+        /// <summary>
+        /// Method to add a genre
+        /// </summary>
         private void AddGenre()
         {
             // create new genre form
@@ -424,13 +434,19 @@ namespace Project4
             // Call the method to refresh the genre listbox
             RefreshGenre();
         }
-
+        /// <summary>
+        /// Add genre button clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addGenreButton_Click(object sender, EventArgs e)
         {
             // Call the add genre method
             AddGenre();
         }
-
+        /// <summary>
+        /// Method to refresh members listbox
+        /// </summary>
         private void RefreshMember()
         {
             // Clear the list box
@@ -445,6 +461,9 @@ namespace Project4
                 }
             }
         }
+        /// <summary>
+        /// Method to modify a member
+        /// </summary>
         private void ModifyMember()
         {
             // Variable for the member name that is selected
@@ -465,12 +484,19 @@ namespace Project4
                 }
             }
         }
+        /// <summary>
+        /// Modify member button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void memberModButton_Click(object sender, EventArgs e)
         {
             // Call the modify member method
             ModifyMember();
         }
-
+        /// <summary>
+        /// Method to add a member (open form)
+        /// </summary>
         private void AddMember()
         {
             // Create new member form
@@ -482,14 +508,19 @@ namespace Project4
             // Call the refresh member list box method
             RefreshMember();
         }
-
+        /// <summary>
+        /// Add member button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addMemberButton_Click(object sender, EventArgs e)
         {
             // Call the add member method
             AddMember();
         }
-
-
+        /// <summary>
+        /// Method to search by name
+        /// </summary>
         private void SearchName()
         {
             // Value to search for
@@ -525,12 +556,20 @@ namespace Project4
                 MessageBox.Show("No Movies with this name were found.");
             }
         }
+        /// <summary>
+        /// When search by name button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchNameButton_Click(object sender, EventArgs e)
         {
             // Call the search by name method
             SearchName();
         }
 
+        /// <summary>
+        /// Method to search by year
+        /// </summary>
         private void SearchYear()
         {
             // Value to search for
@@ -567,13 +606,20 @@ namespace Project4
             }
         }
 
+        /// <summary>
+        /// When search year button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchYearButton_Click(object sender, EventArgs e)
         {
             // Call the search by year method
             SearchYear();
         }
 
-
+        /// <summary>
+        /// Method to add a movie
+        /// </summary>
         private void AddMovie()
         {
 
@@ -589,6 +635,11 @@ namespace Project4
                 Selected();
             }
         }
+        /// <summary>
+        /// When add movie button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addMovieButton_Click(object sender, EventArgs e)
         {
             // Call the add movie method
@@ -629,16 +680,6 @@ namespace Project4
                             MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
                         }                        
                     }
-
-
-                   
-
-
-                  // Store the results
-                  //  MySqlDataReader dataReader = dbComm.ExecuteReader();
-
-
-                    
 
                     // Close the connection
                     dbConnection.Close();
