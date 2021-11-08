@@ -130,6 +130,7 @@ namespace Project4
             this.Name = "MemberForm";
             this.Text = "MemberForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MemberForm_FormClosing);
+            this.Load += new System.EventHandler(this.MemberForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

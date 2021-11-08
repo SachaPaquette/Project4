@@ -110,6 +110,7 @@ namespace Project4
             this.Name = "GenreForm";
             this.Text = "GenreForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GenreForm_FormClosed);
+            this.Load += new System.EventHandler(this.GenreForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

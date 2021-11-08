@@ -340,7 +340,7 @@ namespace Project4
         {
             //   LoadFile(filePath);
             //This method sets up a connection to a MySQL database
-            SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "test_db");
+            SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "db_test");
 
             // Call the header method
             Headers();
@@ -392,22 +392,31 @@ namespace Project4
         /// </summary>
         private void ModifyGenre()
         {
-            // Variable for the genre name
-            string genreName = genreListBox.SelectedItem.ToString();
-
-            for (int x = 0; x < genreList.Count(); x++)
+            if (genreListBox.SelectedIndex != -1)
             {
-                if (genreName == genreList[x].Name)
+                // Variable for the genre name
+                string genreName = genreListBox.SelectedItem.ToString();
+
+                for (int x = 0; x < genreList.Count(); x++)
                 {
-                    // Create a new genre form
-                    genre = new GenreForm(genreList[x]);
+                    if (genreName == genreList[x].Name)
+                    {
+                        // Create a new genre form
+                        genre = new GenreForm(genreList[x]);
 
-                    // Show the new form
-                    genre.ShowDialog();
+                        // Show the new form
+                        genre.ShowDialog();
 
-                    // Call the method to refresh the genre listbox
-                    RefreshGenre();
+                        // Call the method to refresh the genre listbox
+                        RefreshGenre();
+
+                        saveGenre();
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Please select a genre to modify");
             }
         }
         /// <summary>
@@ -433,6 +442,8 @@ namespace Project4
 
             // Call the method to refresh the genre listbox
             RefreshGenre();
+
+            saveGenre();
         }
         /// <summary>
         /// Add genre button clicked
@@ -466,22 +477,31 @@ namespace Project4
         /// </summary>
         private void ModifyMember()
         {
-            // Variable for the member name that is selected
-            string memberName = memberListBox.SelectedItem.ToString();
-
-            for (int x = 0; x < memberList.Count(); x++)
+            if (memberListBox.SelectedIndex != -1)
             {
-                if (memberName == memberList[x].Name)
+                // Variable for the member name that is selected
+                string memberName = memberListBox.SelectedItem.ToString();
+
+                for (int x = 0; x < memberList.Count(); x++)
                 {
-                    // Create new member form
-                    memb = new MemberForm(memberList[x], 2);
+                    if (memberName == memberList[x].Name)
+                    {
+                        // Create new member form
+                        memb = new MemberForm(memberList[x], 2);
 
-                    // Show the form
-                    memb.ShowDialog();
+                        // Show the form
+                        memb.ShowDialog();
 
-                    // Call the refresh member method
-                    RefreshMember();
+                        // Call the refresh member method
+                        RefreshMember();
+
+                        saveMember();
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Please select a member to modify");
             }
         }
         /// <summary>
@@ -507,6 +527,8 @@ namespace Project4
 
             // Call the refresh member list box method
             RefreshMember();
+
+            saveMember();
         }
         /// <summary>
         /// Add member button
@@ -633,6 +655,8 @@ namespace Project4
             {
                 // Call the method to refresh movies listview
                 Selected();
+
+                SaveMovies();
             }
         }
         /// <summary>

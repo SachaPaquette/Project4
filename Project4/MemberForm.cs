@@ -14,6 +14,10 @@ namespace Project4
     {
         public Member modifiedMember { get; set; }
         public int AddM { get; set; }
+
+       public List<Member> memberList;
+
+        public int selected;
         public MemberForm(int addM)
         {
             InitializeComponent();
@@ -26,6 +30,7 @@ namespace Project4
 
             modifiedMember = memb;
             AddM = addM;
+            
 
         }
 
@@ -115,25 +120,46 @@ namespace Project4
             }
         }
 
+        public void LoadTextBoxes()
+        {
+            for (int i = 0; i < Form1.memberList.Count(); i++)
+            {
+                if (modifiedMember.Id == Form1.memberList[i].Id)
+                {
 
+                    nameTextBox.Text = Form1.memberList[i].Name;
+                    idTextBox.Text = Form1.memberList[i].Id.ToString();
+                    dobPicker.Value = Form1.memberList[i].DoB;
+                    typeTextBox.Text = Form1.memberList[i].TypeId.ToString();
+                                   
+                }
+            }
+        }
         private void ModifyMember()
         {
-            if (CheckIfFormOK() == true)
+            try
             {
-                modifiedMember.Id = int.Parse(idTextBox.Text);
-                modifiedMember.Name = nameTextBox.Text;
-                string[] token = dobPicker.Text.Split(' ');
-                modifiedMember.DoB = DateTime.Parse(token[0]);
-                modifiedMember.TypeId = int.Parse(typeTextBox.Text);
 
+
+                if (CheckIfFormOK() == true)
+                {
+                    modifiedMember.Id = int.Parse(idTextBox.Text);
+                    modifiedMember.Name = nameTextBox.Text;                 
+                    modifiedMember.DoB = DateTime.Parse(dobPicker.Text);
+                    modifiedMember.TypeId = int.Parse(typeTextBox.Text);
+
+                }
+                else
+                {
+                    this.Close();
+
+                    AddM = 3;
+                }
             }
-            else
+            catch
             {
-                this.Close();
-
-                AddM = 3;
+                MessageBox.Show("Error");
             }
-           
         }
         private void MemberForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -154,6 +180,12 @@ namespace Project4
 
             }
             
+        }
+
+        private void MemberForm_Load(object sender, EventArgs e)
+        {
+            // Load the textboxes
+            LoadTextBoxes();
         }
     }
 }

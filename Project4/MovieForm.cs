@@ -37,7 +37,7 @@ namespace Project4
             // Variables for the type of input 
             int intVariable;
             double doubleVariable;
-            DateTime dateVariable;
+            
             //Checks if the 'field' parameter is not null or empty
             if (String.IsNullOrEmpty(field))
             {
@@ -300,7 +300,7 @@ namespace Project4
                 dbConnection.Open();
 
                 // String to get movies
-                string movieQuery = "Select * FROM member m, jt_movie_member j, movie n, member_type b where j.movie_id = n.id and m.id = j.member_id and n.title = '" + titleTextBox.Text + "' and b.id = 2;";
+                string movieQuery = "Select * FROM member m, jt_movie_member j, movie n, member_type b where j.movie_id = n.id and m.id = j.member_id and n.title = '" + titleTextBox.Text + "' and b.id = m.id;";
 
 
                 // sql containing query to be executed
@@ -350,16 +350,21 @@ namespace Project4
         /// </summary>
         private void Modify()
         {
-            if (CheckIfFormOK() == true)
+            if (selected != -1)
             {
-                // Associate the infos to the modified movie variable
-                listMovie[selected].Title = titleTextBox.Text;
-                listMovie[selected].Director = directorTextBox.Text;
-                listMovie[selected].Year = int.Parse(yearTextBox.Text);
-                listMovie[selected].Length = lengthTextBox.Text;
-                listMovie[selected].Genre = genreTextBox.Text;
-                listMovie[selected].Rating = Double.Parse(ratingTextBox.Text);
-                listMovie[selected].Path = pathTextBox.Text;
+
+
+                if (CheckIfFormOK() == true)
+                {
+                    // Associate the infos to the modified movie variable
+                    listMovie[selected].Title = titleTextBox.Text;
+                    listMovie[selected].Director = directorTextBox.Text;
+                    listMovie[selected].Year = int.Parse(yearTextBox.Text);
+                    listMovie[selected].Length = lengthTextBox.Text;
+                    listMovie[selected].Genre = genreTextBox.Text;
+                    listMovie[selected].Rating = Double.Parse(ratingTextBox.Text);
+                    listMovie[selected].Path = pathTextBox.Text;
+                }
             }
         }
         /// <summary>
@@ -404,6 +409,9 @@ namespace Project4
         {
             // Call the add a movie method
             AddMovie();
+
+            //Close the form
+            this.Close();
         }
     }
 }

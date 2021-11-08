@@ -89,6 +89,21 @@ namespace Project4
             return formOK;
 
         }
+
+        public void LoadTextBoxes()
+        {
+            for (int i = 0; i < Form1.genreList.Count(); i++)
+            {
+                if (modifiedGenre.Code == Form1.genreList[i].Code)
+                {
+
+                    titleTextBox.Text = Form1.genreList[i].Name;
+                    codeTextBox.Text = Form1.genreList[i].Code.ToString();
+                    descriptionTextBox.Text = Form1.genreList[i].Description;
+                   
+                }
+            }
+        }
         /// <summary>
         /// Method to add a genre
         /// </summary>
@@ -137,5 +152,9 @@ namespace Project4
             }
             }
 
+        private void GenreForm_Load(object sender, EventArgs e)
+        {
+            LoadTextBoxes();
+        }
     }
 }
