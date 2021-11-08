@@ -124,14 +124,21 @@ namespace Project4
         {
             for (int i = 0; i < Form1.memberList.Count(); i++)
             {
-                if (modifiedMember.Id == Form1.memberList[i].Id)
+                if (modifiedMember is null)
+                { }
+                else
                 {
 
-                    nameTextBox.Text = Form1.memberList[i].Name;
-                    idTextBox.Text = Form1.memberList[i].Id.ToString();
-                    dobPicker.Value = Form1.memberList[i].DoB;
-                    typeTextBox.Text = Form1.memberList[i].TypeId.ToString();
-                                   
+
+                    if (modifiedMember.Id == Form1.memberList[i].Id)
+                    {
+
+                        nameTextBox.Text = Form1.memberList[i].Name;
+                        idTextBox.Text = Form1.memberList[i].Id.ToString();
+                        dobPicker.Value = Form1.memberList[i].DoB;
+                        typeTextBox.Text = Form1.memberList[i].TypeId.ToString();
+
+                    }
                 }
             }
         }

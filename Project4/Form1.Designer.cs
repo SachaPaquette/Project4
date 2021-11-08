@@ -181,7 +181,7 @@ namespace Project4
             // 
             // addMovieButton
             // 
-            this.addMovieButton.Location = new System.Drawing.Point(247, 326);
+            this.addMovieButton.Location = new System.Drawing.Point(248, 326);
             this.addMovieButton.Name = "addMovieButton";
             this.addMovieButton.Size = new System.Drawing.Size(123, 23);
             this.addMovieButton.TabIndex = 14;
@@ -206,6 +206,7 @@ namespace Project4
             this.Controls.Add(this.movieListView);
             this.Name = "Form1";
             this.Text = "Db Movies Manager";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
