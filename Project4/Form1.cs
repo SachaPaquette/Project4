@@ -340,7 +340,7 @@ namespace Project4
         {
             //   LoadFile(filePath);
             //This method sets up a connection to a MySQL database
-            SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "db_test");
+            SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "test_db");
 
             // Call the header method
             Headers();
@@ -721,15 +721,10 @@ namespace Project4
         {
             List<int> idsMember = new List<int>();
 
-            for (int i = 0; i < memberList.Count(); i++)
-            {
-                try
-                {
-                    // Open the connection
-                    dbConnection.Open();
-                    string selectQuery = "Select m.id from member m";
-                    MySqlCommand testSelect = new MySqlCommand(selectQuery, dbConnection);
-                    MySqlDataReader dataReader = testSelect.ExecuteReader();
+            dbConnection.Open();
+            string selectQuery = "Select m.id from member m";
+            MySqlCommand testSelect = new MySqlCommand(selectQuery, dbConnection);
+            MySqlDataReader dataReader = testSelect.ExecuteReader();
 
                     //Check to see if the new movie has an existing ID in the db 
                     int index = 0;
@@ -759,7 +754,9 @@ namespace Project4
                         dbConnection.Close();
                     }
                 }
+              
             }
+            dbConnection.Close();
         }
         /// <summary>
         /// Method to save the genre

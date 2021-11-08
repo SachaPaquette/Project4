@@ -191,7 +191,7 @@ namespace Project4
         {
             if (selected >= 0)
             {
-                SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "db_test");
+                SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "test_db");
                 
                 LoadTextBoxes();
                 GetGenreFromDb();
