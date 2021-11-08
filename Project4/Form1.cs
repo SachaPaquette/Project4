@@ -340,7 +340,7 @@ namespace Project4
         {
             //   LoadFile(filePath);
             //This method sets up a connection to a MySQL database
-            SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "db_test");
+            SetDBConnection("127.0.0.1", "3306", "user1", "yolo123456789", "test_db");
 
             // Call the header method
             Headers();
@@ -701,6 +701,7 @@ namespace Project4
 
                             // sql containing query to be executed
                             MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
+                            dbComm.ExecuteReader();
                     }                        
                     
                     dbConnection.Close();
@@ -721,33 +722,40 @@ namespace Project4
         {
             List<int> idsMember = new List<int>();
 
+            dbConnection.Open();
+            string selectQuery = "Select m.id from member m";
+            MySqlCommand testSelect = new MySqlCommand(selectQuery, dbConnection);
+            MySqlDataReader dataReader = testSelect.ExecuteReader();
+
+            //Check to see if the new movie has an existing ID in the db 
+            int index = 0;
+
+            while (dataReader.Read())
+            {
+                idsMember.Add(dataReader.GetInt32(0));
+                index++;
+            }
+
             for (int i = 0; i < memberList.Count(); i++)
             {
                 try
                 {
                     // Open the connection
-                    dbConnection.Open();
-                    string selectQuery = "Select m.id from member m";
-                    MySqlCommand testSelect = new MySqlCommand(selectQuery, dbConnection);
-                    MySqlDataReader dataReader = testSelect.ExecuteReader();
-
-                    //Check to see if the new movie has an existing ID in the db 
-                    int index = 0;
                     
-                    while (dataReader.Read())
-                    {
-                        idsMember.Add(dataReader.GetInt32(0));
-                        index++;
-                    }              
                      if (!idsMember.Contains(memberList[i].Id))
                      {
-                            string movieQuery = "Insert into member(id, name, date_of_birth, member_type_id) VALUES(" + memberList[i].Id + ", '" + memberList[i].Name + "' ," + memberList[i].DoB + ", '" + memberList[i].TypeId + "');";
+                        string[] date = memberList[i].DoB.ToString().Split(' ');
+                        string[] splitDate = date[0].Split('/');
+                        string correctDate = splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0];
+                            string movieQuery = "Insert into member(id, name, date_of_birth, member_type_id) VALUES(" + memberList[i].Id + ", '" + memberList[i].Name + "' , '" + correctDate + "', " + memberList[i].TypeId + ");";
 
                             // sql containing query to be executed
                             MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
+
+
                      }
                     
-                    dbConnection.Close();
+                    
 
                 }
                 catch (MySqlException ex)
@@ -759,7 +767,9 @@ namespace Project4
                         dbConnection.Close();
                     }
                 }
+              
             }
+            dbConnection.Close();
         }
         public void saveGenre()
         {
@@ -785,7 +795,7 @@ namespace Project4
                     }
                     if (!codeGenre.Contains(genreList[i].Code))
                     {
-                        string movieQuery = "Insert into genre(code, name, description) VALUES(" + genreList[i].Code+ ", '" + genreList[i].Name + "' ," + genreList[i].Description + "');";
+                        string movieQuery = "Insert into genre(code, name, description) VALUES(" + genreList[i].Code+ ", '" + genreList[i].Name + "' , '" + genreList[i].Description + "');";
 
                         // sql containing query to be executed
                         MySqlCommand dbComm = new MySqlCommand(movieQuery, dbConnection);
@@ -796,19 +806,23 @@ namespace Project4
                 }
                 catch (MySqlException ex)
                 {
+                    /*
                     if (dbConnection.State.ToString() == "Open")
                     {
                         // Close the connection
 
                         dbConnection.Close();
                     }
+                    */
                 }
             }
 
         }
 
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+      
+
+        private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
         {
             saveGenre();
             saveMember();

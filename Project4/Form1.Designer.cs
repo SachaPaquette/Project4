@@ -206,6 +206,7 @@ namespace Project4
             this.Controls.Add(this.movieListView);
             this.Name = "Form1";
             this.Text = "Db Movies Manager";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing_1);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

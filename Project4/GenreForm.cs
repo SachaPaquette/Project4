@@ -94,14 +94,32 @@ namespace Project4
         {
             for (int i = 0; i < Form1.genreList.Count(); i++)
             {
-                if (modifiedGenre.Code == Form1.genreList[i].Code)
+                try
                 {
 
-                    titleTextBox.Text = Form1.genreList[i].Name;
-                    codeTextBox.Text = Form1.genreList[i].Code.ToString();
-                    descriptionTextBox.Text = Form1.genreList[i].Description;
-                   
+                    if (modifiedGenre is null)
+                    {
+                        titleTextBox.Text = "";
+                        codeTextBox.Text = "";
+                        descriptionTextBox.Text = "";
+                    }
+                    else if (modifiedGenre.Code == Form1.genreList[i].Code)
+                    {
+
+                        titleTextBox.Text = Form1.genreList[i].Name;
+                        codeTextBox.Text = Form1.genreList[i].Code.ToString();
+                        descriptionTextBox.Text = Form1.genreList[i].Description;
+
+                    }
+                    
                 }
+                catch(System.NullReferenceException )
+                {
+                    titleTextBox.Text = "";
+                    codeTextBox.Text = "";
+                    descriptionTextBox.Text = "";
+                }
+
             }
         }
         /// <summary>
